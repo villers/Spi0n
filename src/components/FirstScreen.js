@@ -3,15 +3,19 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import NavButton from './NavButton';
 
-const FirstScreen = (props) => {
-	return (
-		<View style={ styles.container }>
-			<Text style={ styles.title }>First Screen</Text>
+export default class FirstScreen extends React.Component {
+	render() {
+        let { onButtonPress } = this.props;
 
-			<NavButton destLabel="Second" buttonHandler={ props.onButtonPress } />
-		</View>
-	);
-};
+        return (
+			<View style={ styles.container }>
+				<Text style={ styles.title }>First Screen</Text>
+
+				<NavButton destLabel="Second" buttonHandler={ onButtonPress } />
+			</View>
+        );
+	}
+}
 
 FirstScreen.propTypes = {
 	onButtonPress: PropTypes.func.isRequired
@@ -31,5 +35,3 @@ const styles = StyleSheet.create({
 		marginBottom: 30
 	}
 });
-
-export default FirstScreen;

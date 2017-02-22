@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ModalScreen from '../components/ModalScreen';
 import { navigatePop } from '../actions/navigate';
 
-
 const mapStateToProps = (state) => {
 	return {	
 	};

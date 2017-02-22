@@ -1,21 +1,30 @@
 import React, {PropTypes} from 'react';
-import {NavigationExperimental, StyleSheet} from 'react-native';
-import { connect } from 'react-redux';
+import {NavigationExperimental, StyleSheet, BackAndroid, Platform} from 'react-native';
+import { dispatch } from "redux";
 
-import First from './First';
-import Second from './Second';
-import Third from './Third';
-import Modal from './Modal';
-import { navigatePop } from '../actions/navigate';
+import First from '../containers/First';
+import Second from '../containers/Second';
+import Third from '../containers/Third';
+import Modal from '../containers/Modal';
 
 const {
     CardStack: NavigationCardStack,
-    Card: NavigationCard,
     Header: NavigationHeader
 } = NavigationExperimental;
 
+export default class AppContainer extends React.Component {
 
-class AppContainerWithCardStack extends React.Component {
+    constructor() {
+        super();
+
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', () => {
+                this.props.backAction();
+                return true;
+            });
+        }
+    }
+
     render() {
         let { navigationState, backAction } = this.props;
 
@@ -55,7 +64,7 @@ class AppContainerWithCardStack extends React.Component {
     }
 }
 
-AppContainerWithCardStack.propTypes = {
+AppContainer.propTypes = {
     navigationState: PropTypes.object,
     backAction: PropTypes.func.isRequired
 };
@@ -65,14 +74,3 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
-
-export default connect(
-    state => ({
-        navigationState: state.navigationState
-    }),
-    dispatch => ({
-        backAction: () => {
-            dispatch(navigatePop())
-        }
-    })
-)(AppContainerWithCardStack);

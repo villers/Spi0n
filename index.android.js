@@ -7,8 +7,4 @@
 import React from 'react-native';
 import App from './src/app';
 
-const {
-    AppRegistry
-} = React;
-
-AppRegistry.registerComponent('Spi0n', () => App);
+React.AppRegistry.registerComponent('Spi0n', () => App);

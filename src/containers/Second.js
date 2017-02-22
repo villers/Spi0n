@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import SecondScreen from '../components/SecondScreen';
 import { navigatePush } from '../actions/navigate';
 
-
 const mapStateToProps = (state) => {
 	return {
 	};
