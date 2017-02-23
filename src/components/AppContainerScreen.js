@@ -45,7 +45,7 @@ export default class AppContainer extends React.Component {
 				)}
                 renderScene={ this._renderScene }
             />
-        )
+        );
     }
 
     _renderScene({ scene }) {

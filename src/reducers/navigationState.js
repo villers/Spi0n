@@ -1,5 +1,5 @@
 import * as NavigationStateUtils from 'NavigationStateUtils';
-import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../constants/ActionTypes';
+import * as type from '../constants/navigateActionTypes';
 
 const initialNavState = {
     index: 0,
@@ -10,23 +10,23 @@ const initialNavState = {
 
 export default function navigationState(state = initialNavState, action) {
     switch (action.type) {
-        case NAV_PUSH:
+        case type.NAV_PUSH:
             if (state.routes[state.index].key === (action.state && action.state.key))
                 return state;
             return NavigationStateUtils.push(state, action.state);
 
-        case NAV_POP:
+        case type.NAV_POP:
             if (state.index === 0 || state.routes.length === 1)
                 return state;
             return NavigationStateUtils.pop(state);
 
-        case NAV_JUMP_TO_KEY:
+        case type.NAV_JUMP_TO_KEY:
             return NavigationStateUtils.jumpTo(state, action.key);
 
-        case NAV_JUMP_TO_INDEX:
+        case type.NAV_JUMP_TO_INDEX:
             return NavigationStateUtils.jumpToIndex(state, action.index);
 
-        case NAV_RESET:
+        case type.NAV_RESET:
             return {
                 ...state,
                 index: action.index,
