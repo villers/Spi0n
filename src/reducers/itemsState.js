@@ -1,37 +1,41 @@
 import * as type from '../constants/itemsActionTypes';
 
 const initialNavState = {
-    items: [],
-    hasErrored: false,
-    isLoading: false
+  items: [],
+  hasErrored: false,
+  isLoading: false,
+  isRefreshing: false,
 };
 
 export default function items(state = initialNavState, action) {
-    switch (action.type) {
-        case type.ITEMS_HAS_ERRORED:
-            return Object.assign({}, state, {
-                hasErrored: action.hasErrored
-            });
+  switch (action.type) {
+    case type.ITEMS_HAS_ERRORED:
+      return Object.assign({}, state, {
+        isLoading: false,
+        isRefreshing: false,
+        hasErrored: true,
+      });
 
-        case type.ITEMS_IS_LOADING:
-            return Object.assign({}, state, {
-                isLoading: action.isLoading
-            });
+    case type.ITEMS_IS_LOADING:
+      return Object.assign({}, state, {
+        isLoading: true,
+        hasErrored: false,
+      });
 
-        case type.ITEMS_FETCH_DATA_SUCCESS:
-            console.log("fetch update");
-            return Object.assign({}, state, {
-                items: action.items
-            });
+    case type.ITEMS_IS_REFRESHING:
+      return Object.assign({}, state, {
+        isRefreshing: true,
+        hasErrored: false,
+      });
 
-        case type.ITEMS_FETCH_DATA_APPEND_SUCCESS:
-            console.log("fetch append", state, action);
-            //return state.concat(action.items);
-            return Object.assign({}, state, {
-                items: state.items.concat(action.items),
-            });
+    case type.ITEMS_FETCH_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        items: action.items,
+        isLoading: false,
+        isRefreshing: false,
+      });
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

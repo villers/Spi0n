@@ -1,23 +1,16 @@
 import { connect } from 'react-redux';
-import { navigatePop } from '../actions/navigate';
 
-import AppContainerScreen from "../components/AppContainerScreen";
+import AppContainerScreen from '../components/AppContainerScreen';
 
-const mapStateToProps = (state) => {
-    return {
-        navigationState: state.navigationState
-    };
-};
+const mapStateToProps = () => ({
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        backAction: () => {
-            dispatch(navigatePop())
-        }
-    };
-};
+});
+
+const mapDispatchToProps = () => ({
+
+});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(AppContainerScreen);

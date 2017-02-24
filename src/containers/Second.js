@@ -1,25 +1,16 @@
 import { connect } from 'react-redux';
 
 import SecondScreen from '../components/SecondScreen';
-import { navigatePush } from '../actions/navigate';
 
-const mapStateToProps = (state) => {
-	return {
-	};
-};
+const mapStateToProps = () => ({
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onButtonPress: () => {
-			dispatch(navigatePush('Third'))
-		},
-		onModalButtonPress: () => {
-			dispatch(navigatePush('Modal'))
-		}
-	};
-};
+});
+
+const mapDispatchToProps = () => ({
+
+});
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(SecondScreen);

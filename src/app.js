@@ -9,12 +9,10 @@ import AppContainerWithCardStack from './containers/AppContainer';
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
-export default class App extends React.Component {
-    render() {
-        return (
-			<Provider store={store}>
-				<AppContainerWithCardStack />
-			</Provider>
-        )
-    }
-}
+const App = () => (
+  <Provider store={store}>
+    <AppContainerWithCardStack />
+  </Provider>
+);
+
+export default App;
