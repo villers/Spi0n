@@ -24,7 +24,10 @@ export function itemsFetchDataSuccess(items, append) {
 export function itemsFetchData(url, append = false) {
     console.log(url);
     return (dispatch) => {
-        dispatch(itemsIsLoading(true));
+
+        if (!append) {
+            dispatch(itemsIsLoading(true));
+        }
 
         fetch(url)
             .then((response) => {
@@ -38,8 +41,6 @@ export function itemsFetchData(url, append = false) {
             })
             .then((response) => response.json())
             .then((items) => dispatch(itemsFetchDataSuccess(items, append)))
-            .catch((error) => {
-                return dispatch(itemsHasErrored(true));
-            });
+            .catch((error) => dispatch(itemsHasErrored(true)));
     };
 }

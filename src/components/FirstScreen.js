@@ -10,6 +10,8 @@ moment.locale('fr');
 
 export default class FirstScreen extends React.Component {
     componentWillMount() {
+        this.page = 1;
+
         this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home`);
     }
 
@@ -20,7 +22,7 @@ export default class FirstScreen extends React.Component {
         return (
             <TouchableOpacity onPress={() => onButtonPress(item)} >
                 <View style={styles.row}>
-                    <Image source={{uri: item.featured_image.url}} style={{width: 120, height: 80}} />
+                    <Image source={{uri: item.featured_image.url}} style={{width: 120, height: 120}} />
                     <Text numberOfLines={4} style={styles.description}>{item.post_title}</Text>
                     <Text style={styles.date}>{date}</Text>
                 </View>
@@ -34,7 +36,10 @@ export default class FirstScreen extends React.Component {
         return (
             <RefreshControl
                 refreshing={isLoading}
-                onRefresh={() => fetchData(`https://www.spi0n.com/wp-json/nq/v1/home`)}
+                onRefresh={() => {
+                    this.page = 1;
+                    fetchData(`https://www.spi0n.com/wp-json/nq/v1/home`);
+                }}
             />
         );
     }
@@ -46,10 +51,7 @@ export default class FirstScreen extends React.Component {
         // If nextUrl is set, that means there is more data. If nextUrl is unset,
         // then there is no existing data, and you should fetch from scratch.
        // this.props.dispatch(fetchMoreContent(this.props.listData.nextUrl));
-        //this.page = this.page + 1;
-        let {page} = this.props;
-
-        this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home?page=${page}`, true);
+        this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home?page=${++this.page}`, true);
     };
 
     render () {
@@ -74,7 +76,10 @@ export default class FirstScreen extends React.Component {
 FirstScreen.propTypes = {
     onButtonPress: PropTypes.func.isRequired,
     fetchData: PropTypes.func.isRequired,
+
     items: PropTypes.array.isRequired,
+    hasErrored: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     dataSource: PropTypes.object.isRequired
 };
 

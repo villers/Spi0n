@@ -11,10 +11,10 @@ const dataSource = new ListView.DataSource({
 
 const mapStateToProps = (state) => {
 	return {
-        items: state.items,
-        hasErrored: state.itemsHasErrored,
-        isLoading: state.itemsIsLoading,
-        dataSource: dataSource.cloneWithRows(state.items)
+        items: state.itemsState.items,
+        hasErrored: state.itemsState.hasErrored,
+        isLoading: state.itemsState.isLoading,
+        dataSource: dataSource.cloneWithRows(state.itemsState.items)
 	};
 };
 
