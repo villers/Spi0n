@@ -14,14 +14,15 @@ export function itemsIsLoading(bool) {
     };
 }
 
-export function itemsFetchDataSuccess(items) {
+export function itemsFetchDataSuccess(items, append) {
     return {
-        type: type.ITEMS_FETCH_DATA_SUCCESS,
+        type: (append) ? type.ITEMS_FETCH_DATA_APPEND_SUCCESS : type.ITEMS_FETCH_DATA_SUCCESS,
         items
     };
 }
 
-export function itemsFetchData(url) {
+export function itemsFetchData(url, append = false) {
+    console.log(url);
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
 
@@ -36,7 +37,7 @@ export function itemsFetchData(url) {
                 return response;
             })
             .then((response) => response.json())
-            .then((items) => dispatch(itemsFetchDataSuccess(items)))
+            .then((items) => dispatch(itemsFetchDataSuccess(items, append)))
             .catch((error) => {
                 return dispatch(itemsHasErrored(true));
             });

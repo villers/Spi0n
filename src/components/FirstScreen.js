@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
-import {View, Text, StyleSheet, ListView, ViewContainer, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, ListView, ViewContainer, TouchableOpacity, Image, RefreshControl} from 'react-native';
+import InfiniteScrollView from 'react-native-infinite-scroll-view';
+
 import moment from 'moment';
 import 'moment/locale/fr';
 
@@ -7,8 +9,8 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 export default class FirstScreen extends React.Component {
-    componentDidMount() {
-        this.props.fetchData('https://www.spi0n.com/wp-json/nq/v1/home?page=1');
+    componentWillMount() {
+        this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home`);
     }
 
     _renderItem(item) {
@@ -26,15 +28,43 @@ export default class FirstScreen extends React.Component {
         );
     }
 
+    _renderRefreshControl() {
+        let {isLoading, fetchData} = this.props;
+
+        return (
+            <RefreshControl
+                refreshing={isLoading}
+                onRefresh={() => fetchData(`https://www.spi0n.com/wp-json/nq/v1/home`)}
+            />
+        );
+    }
+
+    _loadMoreContentAsync = async () => {
+        // In this example, we're assuming cursor-based pagination, where any
+        // additional data can be accessed at this.props.listData.nextUrl.
+        //
+        // If nextUrl is set, that means there is more data. If nextUrl is unset,
+        // then there is no existing data, and you should fetch from scratch.
+       // this.props.dispatch(fetchMoreContent(this.props.listData.nextUrl));
+        //this.page = this.page + 1;
+        let {page} = this.props;
+
+        this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home?page=${page}`, true);
+    };
+
     render () {
-        let {dataSource} = this.props;
+        let {dataSource, isLoading} = this.props;
 
         return (
             <View style={{flex: 1}} >
                 <ListView
+                    renderScrollComponent={props => <InfiniteScrollView {...props} />}
                     dataSource={dataSource}
                     renderRow={(rowData) => this._renderItem(rowData)}
                     enableEmptySections={true}
+                    refreshControl={this._renderRefreshControl()}
+                    canLoadMore={true}
+                    onLoadMoreAsync={this._loadMoreContentAsync.bind(this)}
                 />
             </View>
         );

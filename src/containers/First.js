@@ -6,7 +6,7 @@ import { itemsFetchData } from '../actions/items';
 import {ListView} from "react-native";
 
 const dataSource = new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2,
+    rowHasChanged: (r1, r2) => JSON.stringify(r1) !== JSON.stringify(r2),
 });
 
 const mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onButtonPress: (item) => dispatch(navigatePush('Second')),
-        fetchData: (url) => dispatch(itemsFetchData(url)),
+        fetchData: (url, append) => dispatch(itemsFetchData(url, append)),
 	};
 };
 
