@@ -10,30 +10,34 @@ const initialNavState = {
 export default function items(state = initialNavState, action) {
   switch (action.type) {
     case type.ITEMS_HAS_ERRORED:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: false,
         isRefreshing: false,
-        hasErrored: true,
-      });
+        hasErrored: action.error,
+      };
 
     case type.ITEMS_IS_LOADING:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isLoading: true,
         hasErrored: false,
-      });
+      };
 
     case type.ITEMS_IS_REFRESHING:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isRefreshing: true,
         hasErrored: false,
-      });
+      };
 
     case type.ITEMS_FETCH_DATA_SUCCESS:
-      return Object.assign({}, state, {
-        items: action.items,
+      return {
+        ...state,
+        items: action.payload,
         isLoading: false,
         isRefreshing: false,
-      });
+      };
 
     default:
       return state;

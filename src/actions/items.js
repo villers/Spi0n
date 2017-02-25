@@ -1,30 +1,24 @@
 import _ from 'lodash';
 import * as type from '../constants/itemsActionTypes';
 
-export function itemsHasErrored() {
-  return {
-    type: type.ITEMS_HAS_ERRORED,
-  };
-}
+export const itemsHasErrored = (error) => ({
+  type: type.ITEMS_HAS_ERRORED,
+  payload: error,
+  error: true,
+});
 
-export function itemsIsLoading() {
-  return {
-    type: type.ITEMS_IS_LOADING,
-  };
-}
+export const itemsIsLoading = () =>  ({
+  type: type.ITEMS_IS_LOADING
+});
 
-export function itemsIsRefreshing() {
-  return {
-    type: type.ITEMS_IS_REFRESHING,
-  };
-}
+export const itemsIsRefreshing = () =>  ({
+  type: type.ITEMS_IS_REFRESHING
+});
 
-export function itemsFetchDataSuccess(items) {
-  return {
-    type: type.ITEMS_FETCH_DATA_SUCCESS,
-    items,
-  };
-}
+export const itemsFetchDataSuccess = (items) =>  ({
+  type: type.ITEMS_FETCH_DATA_SUCCESS,
+  payload: items,
+});
 
 export function itemsFetchData(url) {
   console.log(url);
@@ -46,6 +40,6 @@ export function itemsFetchData(url) {
         .value(),
       )
       .then(items => dispatch(itemsFetchDataSuccess(items)))
-      .catch(() => dispatch(itemsHasErrored()));
+      .catch(error => dispatch(itemsHasErrored(error)));
   };
 }
