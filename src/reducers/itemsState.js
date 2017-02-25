@@ -2,6 +2,7 @@ import * as type from '../constants/itemsActionTypes';
 
 const initialNavState = {
   items: [],
+  error: {},
   hasErrored: false,
   isLoading: false,
   isRefreshing: false,
@@ -12,29 +13,33 @@ export default function items(state = initialNavState, action) {
     case type.ITEMS_HAS_ERRORED:
       return {
         ...state,
+        errors: action.payload,
+        hasErrored: action.error,
         isLoading: false,
         isRefreshing: false,
-        hasErrored: action.error,
       };
 
     case type.ITEMS_IS_LOADING:
       return {
         ...state,
-        isLoading: true,
+        errors: {},
         hasErrored: false,
+        isLoading: true,
       };
 
     case type.ITEMS_IS_REFRESHING:
       return {
         ...state,
-        isRefreshing: true,
+        error: {},
         hasErrored: false,
+        isRefreshing: true,
       };
 
     case type.ITEMS_FETCH_DATA_SUCCESS:
       return {
         ...state,
-        items: action.payload,
+        items: action.payload.items,
+        error: {},
         isLoading: false,
         isRefreshing: false,
       };

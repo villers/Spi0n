@@ -1,23 +1,23 @@
 import _ from 'lodash';
 import * as type from '../constants/itemsActionTypes';
 
-export const itemsHasErrored = (error) => ({
+export const itemsHasErrored = error => ({
   type: type.ITEMS_HAS_ERRORED,
   payload: error,
   error: true,
 });
 
-export const itemsIsLoading = () =>  ({
-  type: type.ITEMS_IS_LOADING
+export const itemsIsLoading = () => ({
+  type: type.ITEMS_IS_LOADING,
 });
 
-export const itemsIsRefreshing = () =>  ({
-  type: type.ITEMS_IS_REFRESHING
+export const itemsIsRefreshing = () => ({
+  type: type.ITEMS_IS_REFRESHING,
 });
 
-export const itemsFetchDataSuccess = (items) =>  ({
+export const itemsFetchDataSuccess = items => ({
   type: type.ITEMS_FETCH_DATA_SUCCESS,
-  payload: items,
+  payload: { items },
 });
 
 export function itemsFetchData(url) {
