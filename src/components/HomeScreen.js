@@ -5,7 +5,7 @@ import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
 import RowListView from './RowListView';
 
-export default class FirstScreen extends React.PureComponent {
+export default class HomeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.loadMoreContentAsync = this.loadMoreContentAsync.bind(this);
@@ -60,7 +60,7 @@ export default class FirstScreen extends React.PureComponent {
   }
 }
 
-FirstScreen.propTypes = {
+HomeScreen.propTypes = {
   fetchData: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
 

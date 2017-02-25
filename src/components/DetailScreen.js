@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const SecondScreen = ({ item }) => (
+const DetailScreen = ({ item }) => (
   <View style={styles.container}>
     <Text style={styles.title}>{item.ID}</Text>
   </View>
 );
 
-SecondScreen.propTypes = {
+DetailScreen.propTypes = {
   item: PropTypes.shape({}).isRequired,
 };
 
-export default SecondScreen;
+export default DetailScreen;

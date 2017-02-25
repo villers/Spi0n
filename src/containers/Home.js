@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import FirstScreen from '../components/FirstScreen';
+import HomeScreen from '../components/HomeScreen';
 import { itemsFetchData, itemsIsRefreshing } from '../actions/items';
 
 const mapStateToProps = state => ({
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FirstScreen);
+)(HomeScreen);

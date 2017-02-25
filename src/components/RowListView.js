@@ -25,21 +25,23 @@ const RowListView = ({ item }) => {
     },
   };
 
+  const onPress = () => Actions.detail({ item });
+
   return (
     <Content padder>
       <Card>
-        <CardItem cardBody onPress={() => Actions.second({ item })}>
+        <CardItem cardBody onPress={onPress}>
           <Image
             style={styles.image}
             source={{ uri: item.featured_image.url }}
           />
         </CardItem>
 
-        <CardItem content onPress={() => Actions.second({ item })}>
+        <CardItem content onPress={onPress}>
           <Text>{item.post_title}</Text>
         </CardItem>
 
-        <CardItem style={styles.cardItem} onPress={() => Actions.second({ item })}>
+        <CardItem style={styles.cardItem} onPress={onPress}>
           <Left>
             <Button transparent>
               <Text>{item.categories[0].category_name}</Text>

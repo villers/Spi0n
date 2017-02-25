@@ -1,14 +1,14 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 
-import First from '../containers/First';
-import Second from '../containers/Second';
+import Home from '../containers/Home';
+import Detail from '../containers/Detail';
 
 const AppContainer = () => (
   <Router hideNavBar>
     <Scene key="root">
-      <Scene key="first" component={First} title="First" initial />
-      <Scene key="second" component={Second} title="Second" />
+      <Scene key="home" component={Home} title="SpiOn" initial />
+      <Scene key="detail" component={Detail} title="Detail" />
     </Scene>
   </Router>
 );
