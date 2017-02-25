@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { View, ListView, RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native';
+import { Container, Header, Left, Body, Button, Icon, Title, Right, View, List } from 'native-base';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
 import RowListView from './RowListView';
@@ -12,6 +13,7 @@ export default class FirstScreen extends React.PureComponent {
 
   componentWillMount() {
     this.page = 1;
+    this.props.refresh();
     this.props.fetchData('https://www.spi0n.com/wp-json/nq/v1/home');
   }
 
@@ -20,26 +22,40 @@ export default class FirstScreen extends React.PureComponent {
   }
 
   render() {
-    const { dataSource, isLoading, isRefreshing, fetchData, refresh } = this.props;
+    const { items, isLoading, isRefreshing, fetchData, refresh } = this.props;
 
     return (
-      <View>
-        <ListView
-          renderScrollComponent={props => <InfiniteScrollView {...props} />}
-          dataSource={dataSource}
-          renderRow={rowData => <RowListView item={rowData} />}
-          enableEmptySections
-          refreshControl={<RefreshControl
-            refreshing={isRefreshing}
-            onRefresh={() => {
-              refresh();
-              fetchData('https://www.spi0n.com/wp-json/nq/v1/home');
-            }}
-          />}
-          canLoadMore={!isRefreshing && !isLoading}
-          onLoadMoreAsync={this.loadMoreContentAsync}
-        />
-      </View>
+      <Container>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          <Right />
+        </Header>
+
+        <View>
+          <List
+            renderScrollComponent={props => <InfiniteScrollView {...props} />}
+            dataArray={items}
+            renderRow={rowData => <RowListView item={rowData} />}
+            enableEmptySections
+            refreshControl={<RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={() => {
+                refresh();
+                fetchData('https://www.spi0n.com/wp-json/nq/v1/home');
+              }}
+            />}
+            canLoadMore={!isRefreshing && !isLoading}
+            onLoadMoreAsync={this.loadMoreContentAsync}
+          />
+        </View>
+      </Container>
     );
   }
 }
@@ -50,5 +66,5 @@ FirstScreen.propTypes = {
 
   isLoading: PropTypes.bool.isRequired,
   isRefreshing: PropTypes.bool.isRequired,
-  dataSource: PropTypes.shape({}).isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };

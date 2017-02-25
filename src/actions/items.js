@@ -27,6 +27,7 @@ export function itemsFetchDataSuccess(items) {
 }
 
 export function itemsFetchData(url) {
+  console.log(url);
   return (dispatch, state) => {
     dispatch(itemsIsLoading());
 
