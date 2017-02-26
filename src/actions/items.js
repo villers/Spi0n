@@ -11,10 +11,6 @@ export const itemsIsLoading = () => ({
   type: type.ITEMS_IS_LOADING,
 });
 
-export const itemsIsRefreshing = () => ({
-  type: type.ITEMS_IS_REFRESHING,
-});
-
 export const itemsFetchDataSuccess = items => ({
   type: type.ITEMS_FETCH_DATA_SUCCESS,
   payload: { items },
@@ -35,7 +31,7 @@ export function itemsFetchData(url) {
       })
       .then(response => response.json())
       .then(items => _.chain(state().itemsState.items.concat(items))
-        .sortBy(item => new Date(item))
+        .sortBy(item => -new Date(item.post_date_gmt))
         .uniqBy('ID')
         .value(),
       )

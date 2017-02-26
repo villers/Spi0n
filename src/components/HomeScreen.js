@@ -1,28 +1,34 @@
 import React, { PropTypes } from 'react';
 import { RefreshControl } from 'react-native';
-import { Container, Header, Left, Body, Button, Icon, Title, Right, View, List } from 'native-base';
-import InfiniteScrollView from 'react-native-infinite-scroll-view';
+import { Container, Header, Left, Body, Button, Icon, Title, Right, List } from 'native-base';
 
 import RowListView from './RowListView';
 
-export default class HomeScreen extends React.PureComponent {
+class HomeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.loadMoreContentAsync = this.loadMoreContentAsync.bind(this);
+
+    this.loadMoreContent = this.loadMoreContent.bind(this);
+    this.loadContent = this.loadContent.bind(this);
   }
 
   componentWillMount() {
     this.page = 1;
-    this.props.refresh();
+    this.loadContent();
+  }
+
+  loadContent() {
     this.props.fetchData('https://www.spi0n.com/wp-json/nq/v1/home');
   }
 
-  loadMoreContentAsync() {
-    this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home?page=${this.page += 1}`);
+  loadMoreContent() {
+    if (!this.props.isLoading) {
+      this.props.fetchData(`https://www.spi0n.com/wp-json/nq/v1/home?page=${this.page += 1}`);
+    }
   }
 
   render() {
-    const { items, isLoading, isRefreshing, fetchData, refresh } = this.props;
+    const { items, isLoading } = this.props;
 
     return (
       <Container>
@@ -38,23 +44,18 @@ export default class HomeScreen extends React.PureComponent {
           <Right />
         </Header>
 
-        <View>
+        <Body>
           <List
-            renderScrollComponent={props => <InfiniteScrollView {...props} />}
+            enableEmptySections
             dataArray={items}
             renderRow={rowData => <RowListView item={rowData} />}
-            enableEmptySections
+            onEndReached={this.loadMoreContent}
             refreshControl={<RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={() => {
-                refresh();
-                fetchData('https://www.spi0n.com/wp-json/nq/v1/home');
-              }}
+              refreshing={isLoading}
+              onRefresh={this.loadContent}
             />}
-            canLoadMore={!isRefreshing && !isLoading}
-            onLoadMoreAsync={this.loadMoreContentAsync}
           />
-        </View>
+        </Body>
       </Container>
     );
   }
@@ -62,9 +63,9 @@ export default class HomeScreen extends React.PureComponent {
 
 HomeScreen.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
 
   isLoading: PropTypes.bool.isRequired,
-  isRefreshing: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
+
+export default HomeScreen;

@@ -10,21 +10,20 @@ import 'moment/locale/fr';
 // set local moment to french
 moment.locale('fr');
 
+const styles = {
+  image: {
+    resizeMode: 'cover',
+    width: null,
+    height: 200,
+    flex: 1,
+  },
+  cardItem: {
+    paddingVertical: 0,
+  },
+};
+
 const RowListView = ({ item }) => {
   const date = moment(item.post_date_gmt).fromNow();
-
-  const styles = {
-    image: {
-      resizeMode: 'cover',
-      width: null,
-      height: 200,
-      flex: 1,
-    },
-    cardItem: {
-      paddingVertical: 0,
-    },
-  };
-
   const onPress = () => Actions.detail({ item });
 
   return (

@@ -5,7 +5,6 @@ const initialNavState = {
   error: {},
   hasErrored: false,
   isLoading: false,
-  isRefreshing: false,
 };
 
 export default function items(state = initialNavState, action) {
@@ -16,7 +15,6 @@ export default function items(state = initialNavState, action) {
         errors: action.payload,
         hasErrored: action.error,
         isLoading: false,
-        isRefreshing: false,
       };
 
     case type.ITEMS_IS_LOADING:
@@ -27,21 +25,12 @@ export default function items(state = initialNavState, action) {
         isLoading: true,
       };
 
-    case type.ITEMS_IS_REFRESHING:
-      return {
-        ...state,
-        error: {},
-        hasErrored: false,
-        isRefreshing: true,
-      };
-
     case type.ITEMS_FETCH_DATA_SUCCESS:
       return {
         ...state,
         items: action.payload.items,
         error: {},
         isLoading: false,
-        isRefreshing: false,
       };
 
     default:

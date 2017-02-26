@@ -1,17 +1,15 @@
 import { connect } from 'react-redux';
 
 import HomeScreen from '../components/HomeScreen';
-import { itemsFetchData, itemsIsRefreshing } from '../actions/items';
+import { itemsFetchData } from '../actions/items';
 
 const mapStateToProps = state => ({
   isLoading: state.itemsState.isLoading,
-  isRefreshing: state.itemsState.isRefreshing,
   items: state.itemsState.items,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(itemsFetchData(url)),
-  refresh: () => dispatch(itemsIsRefreshing()),
 });
 
 export default connect(
