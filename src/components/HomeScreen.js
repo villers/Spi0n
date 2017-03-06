@@ -12,7 +12,7 @@ class HomeScreen extends React.PureComponent {
     this.loadContent = this.loadContent.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.page = 1;
     this.loadContent();
   }

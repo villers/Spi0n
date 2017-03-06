@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import HomeScreen from '../components/HomeScreen';
 import { itemsFetchData } from '../actions/items';
+import HomeScreen from '../components/HomeScreen';
 
 const mapStateToProps = state => ({
   isLoading: state.itemsState.isLoading,

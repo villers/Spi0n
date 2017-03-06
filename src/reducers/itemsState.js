@@ -2,6 +2,7 @@ import * as type from '../constants/itemsActionTypes';
 
 const initialNavState = {
   items: [],
+  item: {},
   error: {},
   hasErrored: false,
   isLoading: false,
@@ -29,6 +30,15 @@ export default function items(state = initialNavState, action) {
       return {
         ...state,
         items: action.payload.items,
+        error: {},
+        isLoading: false,
+      };
+
+    case type.ITEM_FETCH_DATA_SUCCESS:
+      console.log(action);
+      return {
+        ...state,
+        item: action.payload.item,
         error: {},
         isLoading: false,
       };

@@ -16,6 +16,11 @@ export const itemsFetchDataSuccess = items => ({
   payload: { items },
 });
 
+export const itemFetchDataSuccess = item => ({
+  type: type.ITEM_FETCH_DATA_SUCCESS,
+  payload: { item },
+});
+
 export function itemsFetchData(url) {
   console.log(url);
   return (dispatch, state) => {
@@ -36,6 +41,25 @@ export function itemsFetchData(url) {
         .value(),
       )
       .then(items => dispatch(itemsFetchDataSuccess(items)))
+      .catch(error => dispatch(itemsHasErrored(error)));
+  };
+}
+
+export function itemFetchData(url) {
+  console.log(url);
+  return (dispatch) => {
+    dispatch(itemsIsLoading());
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        return response;
+      })
+      .then(response => response.json())
+      .then(items => dispatch(itemFetchDataSuccess(items)))
       .catch(error => dispatch(itemsHasErrored(error)));
   };
 }

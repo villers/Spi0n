@@ -24,7 +24,7 @@ const styles = {
 
 const RowListView = ({ item }) => {
   const date = moment(item.post_date_gmt).fromNow();
-  const onPress = () => Actions.detail({ item });
+  const onPress = () => Actions.detail({ id: item.ID });
 
   return (
     <Content padder>
