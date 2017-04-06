@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { RefreshControl } from 'react-native';
-import { Container, Header, Left, Body, Button, Icon, Title, Right, List } from 'native-base';
+import { Container, Header, Left, Body, Title, Right, List } from 'native-base';
 
 import RowListView from './RowListView';
 
@@ -33,17 +33,12 @@ class HomeScreen extends React.PureComponent {
     return (
       <Container>
         <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Left>
+          <Left />
           <Body>
-            <Title>Header</Title>
+            <Title>Spi0n</Title>
           </Body>
           <Right />
         </Header>
-
         <Body>
           <List
             enableEmptySections
